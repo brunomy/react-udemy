@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import useCounterContext from './hooks/useCounterContext'
+import useTitleColorContext from './hooks/useTitleColorContext';
 
 function App() {
-  const [count, setCount] = useState(0)
+    // const { counter, setCounter } = useContext(CounterContext)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const { counter, setCounter } = useCounterContext();
+    // const { color, setColor } = useTitleColorContext()
+    const { color, dispatch } = useTitleColorContext()
+
+
+    const setTitleColor = (color) => {
+        dispatch({ type: color })
+    }
+
+    return (
+        <>
+            <span style={{ color: color }}>Número: { counter }</span><br/><br/>
+            <button onClick={ () => setCounter(counter + 1) }>Incrementar</button>
+            <button onClick={ () => setTitleColor('RED') }>Mudar cor</button>
+        </>
+    )
 }
 
 export default App
